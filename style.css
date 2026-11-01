@@ -175,3 +175,8 @@ nav{font-size:1.12rem;gap:30px}
  nav .pill{padding:7px 16px}
 }
 @media(max-width:900px){header{position:static}}
+
+.clogo{display:flex;justify-content:center;margin:-6px 0 22px}
+.clogo img{width:130px;height:130px;border-radius:50%;box-shadow:0 0 0 2px rgba(224,178,77,.5),0 0 50px rgba(45,140,255,.55)}
+.cinfo h3{text-align:center}
+.cform textarea{min-height:250px}@media(max-width:900px){.cform textarea{min-height:170px}}
