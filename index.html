@@ -1,0 +1,30 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><title>Online Lessons – Zoom</title></head><body>
+<header><div class="wrap"><a href="index.html" class="logo brand"></a><nav><a href="index.html" data-t="home" class="on"></a><a href="index.html#lessons" data-t="lessons" class="keep"></a><a href="books.html" data-t="books" ></a><a href="index.html#about" data-t="about"></a><a href="index.html#contact" data-t="contact"></a><button class="pill" id="langBtn"></button><button class="pill" id="cartBtn"><span data-t="cart"></span><span id="cartCount">0</span></button></nav></div></header>
+<section class="hero" id="lessons">
+ <video id="bv" autoplay muted loop playsinline style="display:none"></video><div class="fallback"></div>
+ <div class="wrap"><div>
+  <div class="live"><i class="dot"></i><span data-t="live"></span></div>
+  <h1 data-t="h1"></h1><p class="lead" data-t="lead"></p>
+  <div class="row"><a class="btn" href="#shelfSec" data-t="shelfH"></a><a class="btn ghost" href="books.html" data-t="all"></a></div>
+ </div>
+ <div class="zoom">
+  <div class="top"><div class="zbadge"><div class="zlogo"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M3 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm13 3 5-3v10l-5-3z"/></svg></div>Zoom</div><span class="live"><i class="dot"></i>LIVE</span></div>
+  <div style="margin-top:10px;color:var(--gold2);font-size:.75rem;letter-spacing:2px;text-transform:uppercase" data-t="next"></div>
+  <h3></h3><div class="when" id="when"></div>
+  <div id="cdLabel" style="font-size:.8rem;color:var(--mut);margin-bottom:8px"></div>
+  <div class="count" id="cd"><div><b>00</b><span data-t="d"></span></div><div><b>00</b><span data-t="h"></span></div><div><b>00</b><span data-t="m"></span></div><div><b>00</b><span data-t="s"></span></div></div>
+  <a class="btn" id="joinBtn" target="_blank" rel="noopener"><span></span></a>
+  <div class="meta"><span><span data-t="id"></span>: <b id="zid"></b> · <span data-t="pass"></span>: <b id="zpass"></b></span></div>
+  <div class="meta"><button id="calBtn" data-t="cal"></button><button id="copyBtn" data-t="copy"></button></div>
+  <div class="tiles"><div class="tile"><b data-t="rec"></b><span data-t="recv"></span></div><div class="tile"><b>🎓</b><span data-t="free"></span></div><div class="tile"><b>-10%</b><span data-t="under"></span></div></div>
+ </div></div>
+</section>
+<section id="shelfSec" class="alt"><div class="wrap"><div class="head"><div><small data-t="shelf"></small><h2 data-t="shelfH"></h2></div><a class="btn ghost" href="books.html" data-t="all"></a></div>
+ <div class="grid" id="shelf"></div>
+ <div class="promo"><h3 class="serif" style="font-size:1.8rem" data-t="promo"></h3><a class="btn" href="books.html" data-t="all"></a></div></div></section>
+<section id="about"><div class="wrap two"><div class="portrait">✦</div><div><small style="color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-size:.75rem" data-t="about"></small><h2 style="font-size:3rem" data-t="aboutH"></h2><p style="color:var(--mut);margin-top:14px" data-t="aboutT"></p></div></div>
+ <div class="wrap feat"><div><h4 data-t="f1"></h4><p style="color:var(--mut)" data-t="f1t"></p></div><div><h4 data-t="f2"></h4><p style="color:var(--mut)" data-t="f2t"></p></div><div><h4 data-t="f3"></h4><p style="color:var(--mut)" data-t="f3t"></p></div></div></section>
+<section id="contact" class="alt"><div class="wrap" style="max-width:640px"><h2 style="font-size:3rem;margin-bottom:20px" data-t="contactH"></h2>
+ <form class="contact" onsubmit="event.preventDefault();location.href='mailto:'+SITE.email+'?subject='+encodeURIComponent(this.n.value)+'&body='+encodeURIComponent(this.m.value)"><input name="n" data-ph="name" required><input type="email" data-ph="email" required><textarea name="m" rows="5" data-ph="msg" required></textarea><button class="btn" data-t="send"></button></form></div></section>
+<div id="veil"></div><aside id="drawer"><h3 class="serif" style="font-size:1.8rem" data-t="cart"></h3><div id="items" style="flex:1;overflow:auto"></div><div class="ci"><b data-t="total"></b><b id="total"></b></div><button class="btn" style="margin-top:14px;justify-content:center" onclick="checkout()" data-t="checkout"></button></aside><footer><div class="wrap">© 2026 <span class="brand"></span> · <a id="fe"></a></div></footer><script src="config.js"></script><script src="app.js"></script><script>document.addEventListener("DOMContentLoaded",()=>{const f=document.getElementById("fe");f.textContent=SITE.email;f.href="mailto:"+SITE.email;const z=document.querySelector(".zoom h3");if(z){const u=()=>z.textContent=SITE.lessonTitle[lang];u();document.getElementById("langBtn").addEventListener("click",u)}})</script>
+</body></html>
