@@ -11,8 +11,19 @@ function loadCatalog() {
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method not allowed' };
   try {
-    const { items, lang } = JSON.parse(event.body || '{}');
-    const { SITE, BOOKS } = loadCatalog();
+    const { items, lang, pass } = JSON.parse(event.body || '{}');
+    const { SITE, BOOKS, PASS } = loadCatalog();
+    const origin0 = process.env.SITE_URL || event.headers.origin;
+    if (pass) {
+      const s = await stripe.checkout.sessions.create({
+        mode: 'payment', locale: lang === 'en' ? 'en' : 'el', metadata: { type: 'pass' },
+        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: Math.round(PASS.price * 100),
+          product_data: { name: PASS[lang === 'en' ? 'en' : 'el'] } } }],
+        success_url: origin0 + '/index.html?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: origin0 + '/index.html#lessons'
+      });
+      return { statusCode: 200, body: JSON.stringify({ url: s.url }) };
+    }
     const line_items = (items || []).slice(0, 30).map(i => {
       const b = BOOKS.find(x => x.id === i.id);
       if (!b) throw new Error('Unknown product');

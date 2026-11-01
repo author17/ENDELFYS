@@ -1,18 +1,18 @@
 // ===== EDIT THIS FILE ONLY =====
 window.SITE = {
-  name: "Όνομα Δασκάλου",            // teacher / brand name
-  nameEn: "Teacher Name",
+  name: "ΓΙΑΝΝΟΣ ΙΟΑΝΟΥ",              // teacher name
+  center: "ΕΝ ΔΕΛΦΥΣ",
+  nameEn: "GIANNOS IOANNOU",
   email: "info@example.com",
-  // Zoom
-  zoomJoinUrl: "https://zoom.us/j/0000000000?pwd=PASTE_PASSWORD",
-  zoomMeetingId: "000 0000 0000",
-  zoomPasscode: "123456",
+  // Zoom link / meeting ID / passcode are NOT here: they live on the server (Netlify env vars ZOOM_JOIN_URL, ZOOM_MEETING_ID, ZOOM_PASSCODE)
   // Weekly lesson: 0=Sun ... 3=Wed ; time in Athens/Cyprus time
   lesson: { weekday: 3, hour: 20, minute: 0, durationMin: 90, tz: "Europe/Athens" },
   lessonTitle: { el: "Ζωντανό μάθημα στο Zoom", en: "Live lesson on Zoom" },
   // Banner video: put a file next to index.html (e.g. banner.mp4) or leave "" for animated background
   bannerVideo: "",
   bannerPoster: "",
+  zoomEmbed: true,            // true = lesson opens INSIDE the page (needs Zoom Meeting SDK keys on the server); false = opens Zoom in a new tab
+  zoomSdkVersion: "6.10.0",  // Zoom Meeting SDK version (check the latest on npm: @zoom/meetingsdk)
   currency: "€",
   freeShippingFrom: 3
 };
@@ -28,3 +28,5 @@ window.BOOKS = [
   { id:9, cat:"seminar", el:"Σεμινάριο: Ορφικοί Ύμνοι", en:"Seminar: Orphic Hymns", price:37.20, old:62.00, hue:180 },
   { id:10,cat:"seminar", el:"Webinar: Ελευσίνια", en:"Webinar: Eleusis", price:62.00, old:0, hue:260 }
 ];
+// Paid access to the live Zoom lessons
+window.PASS = { price: 50, el: "Πρόσβαση στα ζωντανά μαθήματα (τρίμηνο)", en: "Live lessons access (quarterly)" };
