@@ -4,6 +4,9 @@ window.SITE = {
   center: "ΕΝ ΔΕΛΦΥΣ",
   nameEn: "GIANNOS IOANNOU",
   email: "info@example.com",
+  phone: "+30 000 000 0000",
+  facebook: "https://www.facebook.com/",
+  youtube: "https://www.youtube.com/",
   // Zoom link / meeting ID / passcode are NOT here: they live on the server (Netlify env vars ZOOM_JOIN_URL, ZOOM_MEETING_ID, ZOOM_PASSCODE)
   // Weekly lesson: 0=Sun ... 3=Wed ; time in Athens/Cyprus time
   lesson: { weekday: 3, hour: 20, minute: 0, durationMin: 90, tz: "Europe/Athens" },
