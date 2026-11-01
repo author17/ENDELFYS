@@ -1,6 +1,6 @@
 // ===== EDIT THIS FILE ONLY =====
 window.SITE = {
-  name: "ΓΙΑΝΝΟΣ ΙΟΑΝΟΥ",              // teacher name
+  name: "ΓΙΑΝΝΟΣ ΙΩΑΝΝΟΥ",              // teacher name
   center: "ΕΝ ΔΕΛΦΥΣ",
   nameEn: "GIANNOS IOANNOU",
   email: "info@example.com",
