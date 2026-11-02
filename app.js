@@ -1,4 +1,5 @@
 const S=window.SITE,B=window.BOOKS;let lang=(()=>{try{return localStorage.getItem('lang')}catch(e){return null}})()||'el';
+let passInCart=localStorage.getItem('cartPass')==='1';
 let cart=(()=>{try{return JSON.parse(localStorage.getItem('cart')||'[]')}catch(e){return[]}})();
 const T={
  el:{home:'Αρχική',books:'Βιβλία',lessons:'Μαθήματα',about:'Σχετικά',contact:'Επικοινωνία',cart:'Καλάθι',
@@ -58,14 +59,18 @@ function renderBooks(){const e=$('#all');if(!e)return;const q=$('#q').value.toLo
 function save(){try{localStorage.setItem('cart',JSON.stringify(cart))}catch(e){}}
 function addCart(id){const c=cart.find(x=>x.id==id);c?c.q++:cart.push({id,q:1});save();renderCart();toggleCart(true)}
 function delCart(id){cart=cart.filter(x=>x.id!=id);save();renderCart()}
-function renderCart(){const n=cart.reduce((a,c)=>a+c.q,0);$('#cartCount').textContent=n;let tot=0;
- $('#items').innerHTML=cart.length?cart.map(c=>{const b=B.find(x=>x.id==c.id);tot+=b.price*c.q;return `<div class="ci"><span>${c.q}× ${b[lang]}</span><span>${eur(b.price*c.q)} <button class="pill" onclick="delCart(${c.id})">✕</button></span></div>`}).join(''):`<p style="color:var(--mut);margin-top:20px">${t('empty')}</p>`;
+function renderCart(){const n=cart.reduce((a,c)=>a+c.q,0)+(passInCart?1:0);$('#cartCount').textContent=n;let tot=0;
+ let h=passInCart?(tot+=window.PASS.price,`<div class="ci"><span>1× ${window.PASS[lang]}</span><span>${eur(window.PASS.price)} <button class="pill" onclick="delPass()">✕</button></span></div>`):'';
+ h+=cart.map(c=>{const b=B.find(x=>x.id==c.id);tot+=b.price*c.q;return `<div class="ci"><span>${c.q}× ${b[lang]}</span><span>${eur(b.price*c.q)} <button class="pill" onclick="delCart(${c.id})">✕</button></span></div>`}).join('');
+ $('#items').innerHTML=h||`<p style="color:var(--mut);margin-top:20px">${t('empty')}</p>`;
  $('#total').textContent=eur(tot)}
+function addPass(){passInCart=true;localStorage.setItem('cartPass','1');renderCart();toggleCart(true)}
+function delPass(){passInCart=false;localStorage.removeItem('cartPass');renderCart()}
 function toggleCart(o){$('#drawer').classList.toggle('open',o);$('#veil').classList.toggle('open',o)}
-async function checkout(){if(!cart.length)return;
- try{const r=await fetch('/.netlify/functions/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:cart.map(c=>({id:c.id,q:c.q})),lang})});
+async function checkout(){if(!cart.length&&!passInCart)return;
+ try{const r=await fetch('/.netlify/functions/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:cart.map(c=>({id:c.id,q:c.q})),pass:passInCart,lang})});
   const d=await r.json();if(d.url){location.href=d.url;return}throw new Error(d.error||'fail')}
- catch(e){const body=cart.map(c=>{const b=B.find(x=>x.id==c.id);return `${c.q}x ${b[lang]} - ${eur(b.price*c.q)}`}).join('\n');
+ catch(e){const body=(passInCart?`1x ${window.PASS[lang]} - ${eur(window.PASS.price)}\n`:'')+cart.map(c=>{const b=B.find(x=>x.id==c.id);return `${c.q}x ${b[lang]} - ${eur(b.price*c.q)}`}).join('\n');
   location.href=`mailto:${S.email}?subject=Order&body=${encodeURIComponent(body+'\n\n'+t('total')+': '+$('#total').textContent)}`}}
 document.addEventListener('DOMContentLoaded',()=>{
  if($('#joinBtn')){$('#joinBtn').onclick=e=>{if(!access){e.preventDefault();buyPass();return}if(S.zoomEmbed){e.preventDefault();embedZoom().catch(()=>window.open(access.url,'_blank'))}};checkAccess();
@@ -82,8 +87,7 @@ async function checkAccess(){let sid=null;try{sid=new URLSearchParams(location.s
 function renderAccess(){const j=$('#joinBtn');if(!j)return;const m=$('#zmeta');
  if(access){j.href=access.url;j.target='_blank';$('#zid').textContent=access.id;$('#zpass').textContent=access.pass;m.style.display='flex';$('#lockNote').style.display='none';wm(access.email)}
  else{j.href='#';j.removeAttribute('target');m.style.display='none';$('#lockNote').style.display='block'}tick()}
-async function buyPass(){try{const r=await fetch('/.netlify/functions/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pass:true,lang})});
- const d=await r.json();if(d.url)location.href=d.url;else throw 0}catch(e){location.href=`mailto:${S.email}?subject=Lessons access`}}
+function buyPass(){addPass()}
 
 function wm(txt){if(!txt||$('#wm'))return;const d=document.createElement('div');d.id='wm';d.textContent=txt;document.querySelector('.stage').appendChild(d);
  let x=10,y=20,dx=.35,dy=.25;setInterval(()=>{x+=dx;y+=dy;if(x>70||x<5)dx=-dx;if(y>85||y<8)dy=-dy;d.style.left=x+'%';d.style.top=y+'%'},60)}

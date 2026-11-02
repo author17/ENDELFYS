@@ -14,16 +14,6 @@ exports.handler = async (event) => {
     const { items, lang, pass } = JSON.parse(event.body || '{}');
     const { SITE, BOOKS, PASS } = loadCatalog();
     const origin0 = process.env.SITE_URL || event.headers.origin;
-    if (pass) {
-      const s = await stripe.checkout.sessions.create({
-        mode: 'payment', locale: lang === 'en' ? 'en' : 'el', metadata: { type: 'pass' },
-        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: Math.round(PASS.price * 100),
-          product_data: { name: PASS[lang === 'en' ? 'en' : 'el'] } } }],
-        success_url: origin0 + '/index.html?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: origin0 + '/index.html#lessons'
-      });
-      return { statusCode: 200, body: JSON.stringify({ url: s.url }) };
-    }
     const line_items = (items || []).slice(0, 30).map(i => {
       const b = BOOKS.find(x => x.id === i.id);
       if (!b) throw new Error('Unknown product');
@@ -33,16 +23,19 @@ exports.handler = async (event) => {
           product_data: { name: b[lang === 'en' ? 'en' : 'el'] } }
       };
     });
+    if (pass) line_items.unshift({ quantity: 1, price_data: { currency: 'eur', unit_amount: Math.round(PASS.price * 100),
+      product_data: { name: PASS[lang === 'en' ? 'en' : 'el'] } } });
     if (!line_items.length) throw new Error('Empty cart');
     const origin = process.env.SITE_URL || event.headers.origin;
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items,
       locale: lang === 'en' ? 'en' : 'el',
-      shipping_address_collection: { allowed_countries: ['GR', 'CY', 'DE', 'FR', 'IT', 'GB', 'US', 'AU'] },
-      phone_number_collection: { enabled: true },
-      success_url: origin + '/books.html?paid=1',
-      cancel_url: origin + '/books.html'
+      ...(pass ? { metadata: { type: 'pass' } } : {}),
+      ...((items || []).length ? { shipping_address_collection: { allowed_countries: ['GR', 'CY', 'DE', 'FR', 'IT', 'GB', 'US', 'AU'] },
+        phone_number_collection: { enabled: true } } : {}),
+      success_url: pass ? origin + '/index.html?session_id={CHECKOUT_SESSION_ID}' : origin + '/books.html?paid=1',
+      cancel_url: origin + (pass ? '/index.html#lessons' : '/books.html')
     });
     return { statusCode: 200, body: JSON.stringify({ url: session.url }) };
   } catch (e) {
