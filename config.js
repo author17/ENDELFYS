@@ -32,4 +32,4 @@ window.BOOKS = [
   { id:10,cat:"seminar", el:"Webinar: Ελευσίνια", en:"Webinar: Eleusis", price:62.00, old:0, hue:260 }
 ];
 // Paid access to the live Zoom lessons
-window.PASS = { price: 50, el: "Πρόσβαση στα ζωντανά μαθήματα (τρίμηνο)", en: "Live lessons access (quarterly)" };
+window.PASS = { price: 25, el: "Πρόσβαση στα ζωντανά μαθήματα (τρίμηνο)", en: "Live lessons access (quarterly)" };
