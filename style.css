@@ -212,3 +212,29 @@ header{background:rgba(24,58,156,.92)}
 .bg-card{background:linear-gradient(120deg,#1f48b0,#2a58cc)}
 .zoom{background:linear-gradient(160deg,rgba(40,80,190,.9),rgba(24,58,156,.92))}
 .promo{background:linear-gradient(120deg,#1f48b0,#3a4fb8)}
+/* v3: omega glyph fix (bold ω was missing on some Windows PCs), smaller join button, mobile stage grows with content */
+@font-face{font-family:'GrFix';font-weight:400;src:local('Segoe UI'),local('Arial'),local('Helvetica');unicode-range:U+03C9,U+1F60-1F6F,U+1F7C-1F7D,U+1FF2-1FF7}
+@font-face{font-family:'GrFix';font-weight:500 900;src:local('Segoe UI Bold'),local('Segoe UI Semibold'),local('Arial Bold'),local('Arial-BoldMT'),local('Helvetica Bold');unicode-range:U+03C9,U+1F60-1F6F,U+1F7C-1F7D,U+1FF2-1FF7}
+body,button,input,textarea,select{font-family:'GrFix','Inter',system-ui,sans-serif}
+.serif,h1,h2,h3,.logo,.count b{font-family:'GrFix','Cormorant Garamond',serif}
+.stage #joinBtn{min-width:0;font-size:1rem;padding:12px 28px;line-height:1.25}
+@media(max-width:700px){
+ .stage{min-height:0}
+ .stage-in{position:relative;inset:auto;padding:64px 16px 24px;justify-content:flex-start}
+ .stage #joinBtn{width:auto;max-width:94%;font-size:.95rem;padding:11px 20px}
+ .stage .count{margin:10px 0}
+}
+/* v4: desktop join button back to its original size; only mobile is smaller */
+.stage #joinBtn{min-width:300px;font-size:1.1rem;padding:16px 36px;line-height:1.3}
+@media(max-width:700px){.stage #joinBtn{min-width:0;width:auto;max-width:100%;font-size:.88rem;padding:10px 16px;white-space:nowrap}}
+.cgrid>*,.two2>*,.cform label{min-width:0}.cform input,.cform textarea{width:100%;min-width:0}
+
+/* v5: About text from Giannos */
+.about-wrap{max-width:860px;margin-top:14px}
+.about-long h2{font-size:clamp(1.9rem,3.2vw,2.6rem);color:var(--gold2);margin:26px 0 14px}
+.about-long h2:first-child{margin-top:6px}
+.about-long p{margin:0 0 16px;line-height:1.85;color:var(--ink)}
+.about-long h4{font-size:1.15rem;color:var(--gold2);margin:22px 0 10px}
+.about-long .heroes{margin:0 0 18px 22px;display:grid;gap:8px;line-height:1.7}
+.about-long .heroes li::marker{color:var(--gold)}
+.about-long .bless{margin-top:26px;font-size:1.25rem;color:var(--gold2);text-align:center;font-family:'GrFix','Cormorant Garamond',serif}
