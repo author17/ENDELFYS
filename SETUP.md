@@ -23,3 +23,6 @@ the site shows each paying student's e-mail as a moving watermark over the lesso
    To let students speak later, just allow unmute in Zoom - no website change needed.
 4. config.js: zoomEmbed true = in-page, false = opens Zoom in a new tab. If the embedded join fails the site falls back to the new-tab link.
 Note: an app that joins meetings outside your own Zoom account needs Zoom app approval; for your friend's own meetings it works in development mode.
+
+## Zoom host connection (button "Σύνδεση λογαριασμού Zoom")
+In the Zoom Marketplace app add the Redirect URL `https://YOUR-SITE/.netlify/functions/zoom-callback` and the scope `user:read`. The administrator then presses the button on the site, signs in to Zoom, and sees the account and personal meeting ID to copy into the Netlify variables above.

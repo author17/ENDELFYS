@@ -2,7 +2,7 @@ const S=window.SITE,B=window.BOOKS;let lang=(()=>{try{return localStorage.getIte
 let passInCart=localStorage.getItem('cartPass')==='1';
 let cart=(()=>{try{return JSON.parse(localStorage.getItem('cart')||'[]')}catch(e){return[]}})();
 const T={
- el:{home:'Αρχική',books:'Βιβλία',lessons:'Μαθήματα',about:'Σχετικά',contact:'Επικοινωνία',cart:'Καλάθι',
+ el:{hostBtn:'Σύνδεση λογαριασμού Zoom (διαχειριστής)',hostH:'Σύνδεση του λογαριασμού Zoom',hostP:'Μόνο για τον διαχειριστή του Κέντρου. Συνδέστε τον λογαριασμό Zoom από τον οποίο γίνονται τα ζωντανά μαθήματα.',hostS1:'Πατήστε «Σύνδεση με Zoom».',hostS2:'Συνδεθείτε στον λογαριασμό σας στο Zoom και πατήστε «Allow».',hostS3:'Θα εμφανιστεί το όνομα του λογαριασμού και τα στοιχεία της αίθουσας.',hostGo:'Σύνδεση με Zoom',hostX:'Κλείσιμο',hostOff:'Η σύνδεση ενεργοποιείται όταν ο ιστότοπος τεθεί στο διαδίκτυο (Netlify) με τα κλειδιά Zoom. Βλ. SETUP.md.',home:'Αρχική',books:'Βιβλία',lessons:'Μαθήματα',about:'Σχετικά',contact:'Επικοινωνία',cart:'Καλάθι',
   live:'Ζωντανά μαθήματα μέσω Zoom',h1:'Μάθε <em>ζωντανά</em>, από όπου κι αν βρίσκεσαι',lead:'Διαδραστικά διαδικτυακά μαθήματα με ζωντανή συζήτηση. Οι συνεδρίες καταγράφονται και στέλνονται στους συμμετέχοντες.',
   join:'Είσοδος στο Zoom',joinNow:'● ΖΩΝΤΑΝΑ ΤΩΡΑ – Μπες στο Zoom',start:'Ξεκινά σε',d:'Ημέρες',h:'Ώρες',m:'Λεπτά',s:'Δευτ.',unlock:'Απόκτησε πρόσβαση',lock:'Η είσοδος στο Zoom ανοίγει μετά την πληρωμή',watch:'Παρακολούθηση μόνο · απαγορεύεται η καταγραφή και η λήψη · η συμμετοχή με φωνή θα ενεργοποιηθεί σύντομα',stageH:'Ζωντανή αίθουσα μαθημάτων',bgT:'Βιβλία, Σετ & Σεμινάρια',bgS:'Δες όλα τα βιβλία, τα σετ με έκπτωση και τα σεμινάρια στη σελίδα των βιβλίων. Δωρεάν αποστολή για 3 βιβλία και άνω.',cName:'Όνομα',cMailL:'Email',cSubj:'Θέμα',cMsg:'Μήνυμα',cIntro:'Έχετε ερώτηση για τα μαθήματα, τα βιβλία ή την εγγραφή; Θα χαρούμε να σας απαντήσουμε.',cInfo:'Στοιχεία επικοινωνίας',cEm:'Email',cPh:'Τηλέφωνο',cHr:'Ώρες απάντησης',cHrV:'Δευτέρα – Παρασκευή, 10:00 – 18:00',cLs:'Ζωντανά μαθήματα',cLsV:'Κάθε Τετάρτη στις 20:00, μέσω Zoom',cFollow:'Ακολουθήστε μας',cWrite:'Στείλτε μας μήνυμα',cSend:'Αποστολή μηνύματος',cal:'Προσθήκη στο ημερολόγιο',copy:'Αντιγραφή συνδέσμου',copied:'Αντιγράφηκε!',
   id:'Meeting ID',pass:'Κωδικός',rec:'Μόνο ζωντανά',recv:'Χωρίς καταγραφή ή λήψη',free:'Δωρεάν για φοιτητές',under:'-10% κάτω των 25',
@@ -11,7 +11,7 @@ const T={
   promo:'Δωρεάν μεταφορικά για 3 βιβλία και άνω!',aboutH:'Σχετικά με εμάς',aboutT:'Κέντρον Μελετών Ἑλλανίου Πνεύματος «ΕΝ ΔΕΛΦΥΣ». Γράψτε εδώ λίγα λόγια για τον ΓΙΑΝΝΟ ΙΩΑΝΝΟΥ: σπουδές, έργο, φιλοσοφία διδασκαλίας.',
   f1:'Ζωντανά μαθήματα',f1t:'Κάθε εβδομάδα στο Zoom, με ερωτήσεις και συζήτηση.',f2:'Μόνο ζωντανά',f2t:'Τα μαθήματα δεν καταγράφονται και δεν διατίθενται για λήψη.',f3:'Βιβλία',f3t:'Τα βιβλία του δασκάλου, ταχυδρομικά σε όλο τον κόσμο.',
   contactH:'Επικοινωνία',name:'Όνομα',email:'Email',msg:'Μήνυμα',send:'Αποστολή',empty:'Το καλάθι είναι άδειο',total:'Σύνολο',checkout:'Ολοκλήρωση παραγγελίας',author:'Συγγραφέας',next:'Επόμενο μάθημα'},
- en:{home:'Home',books:'Books',lessons:'Lessons',about:'About',contact:'Contact',cart:'Cart',
+ en:{hostBtn:'Connect Zoom account (host)',hostH:'Connect your Zoom account',hostP:'For the Centre administrator only. Connect the Zoom account that hosts the live lessons.',hostS1:'Press “Connect with Zoom”.',hostS2:'Sign in to your Zoom account and press “Allow”.',hostS3:'Your account name and room details will be shown.',hostGo:'Connect with Zoom',hostX:'Close',hostOff:'The connection becomes active once the site is live on Netlify with the Zoom keys. See SETUP.md.',home:'Home',books:'Books',lessons:'Lessons',about:'About',contact:'Contact',cart:'Cart',
   live:'Live lessons on Zoom',h1:'Learn <em>live</em>, from wherever you are',lead:'Interactive online lessons with live discussion. Sessions are recorded and sent to all participants.',
   join:'Join on Zoom',joinNow:'● LIVE NOW – Join Zoom',start:'Starts in',d:'Days',h:'Hours',m:'Min',s:'Sec',unlock:'Get access',lock:'Zoom access opens after payment',watch:'Watch only · recording and downloading are prohibited · speaking will be enabled soon',stageH:'Live lesson room',bgT:'Books, Sets & Seminars',bgS:'See all books, discounted sets and seminars on the Books page. Free shipping on 3 or more books.',cName:'Name',cMailL:'Email',cSubj:'Subject',cMsg:'Message',cIntro:'Questions about the lessons, the books or registration? We will be glad to answer.',cInfo:'Contact details',cEm:'Email',cPh:'Phone',cHr:'Reply hours',cHrV:'Monday – Friday, 10:00 – 18:00',cLs:'Live lessons',cLsV:'Every Wednesday at 20:00, on Zoom',cFollow:'Follow us',cWrite:'Send us a message',cSend:'Send message',cal:'Add to calendar',copy:'Copy link',copied:'Copied!',
   id:'Meeting ID',pass:'Passcode',rec:'Live only',recv:'No recording or download',free:'Free for students',under:'-10% under 25',
@@ -104,3 +104,14 @@ async function embedZoom(){
  const client=ZoomMtgEmbedded.createClient();
  await client.init({zoomAppRoot:root,language:'en-US',patchJsMedia:true,customize:{video:{isResizable:false,viewSizes:{default:{width:root.clientWidth,height:root.clientHeight}}}}});
  await client.join({signature:d.signature,sdkKey:d.clientId,meetingNumber:d.meetingNumber,password:d.password,userName:d.name||'Student'})}
+
+document.addEventListener('DOMContentLoaded',()=>{
+ const m=document.getElementById('hostModal');if(!m)return;
+ const open=o=>{m.classList.toggle('open',o);document.getElementById('hostMsg').textContent=''};
+ document.getElementById('hostBtn').onclick=()=>open(true);
+ document.getElementById('hostX').onclick=()=>open(false);
+ m.onclick=e=>{if(e.target===m)open(false)};
+ document.getElementById('hostGo').onclick=async()=>{
+  const msg=document.getElementById('hostMsg');
+  try{const r=await fetch('/.netlify/functions/zoom-connect?check=1');if(!r.ok)throw 0;const d=await r.json();if(!d.ready)throw 0;location.href='/.netlify/functions/zoom-connect?lang='+lang}
+  catch(e){msg.textContent=t('hostOff')}}});
